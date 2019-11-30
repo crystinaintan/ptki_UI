@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ptki_UI.jnlp">
+  <information>
+    <title>ptki_UI</title>
+    <vendor>crystinaintan</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib\lucene-snowball-3.0.2.jar" size="115256" download="eager" />
+    <jar href="lib\stanford-corenlp-3.9.2-models.jar" size="362565193" download="eager" />
+    <jar href="lib\stanford-corenlp-3.9.2.jar" size="8146873" download="eager" />
+    <jar href="ptki_UI.jar" size="38504" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ptki_UI" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="ptki_ui.Ptki_UI"  name="ptki_UI" />
+  <update check="always"/>
+</jnlp>
