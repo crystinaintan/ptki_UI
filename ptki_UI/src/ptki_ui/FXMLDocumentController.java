@@ -7,15 +7,25 @@ package ptki_ui;
 
 import RankedRetrieval.BM_25;
 import RankedRetrieval.DocumentBagOfWord;
+import RankedRetrieval.LM_Object;
+import RankedRetrieval.LanguageModel;
 import RankedRetrieval.RSV_BM25;
 import RankedRetrieval.RankedSearching;
+import RankedRetrieval.TermTfIdf;
+import inverted_index.IndexGenerator;
+import inverted_index.Inverted_Index;
 import inverted_index.Searching;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +52,11 @@ public class FXMLDocumentController implements Initializable {
     long timeAwal;
     long timeAkhir;
 
+     List<String> allDocAfterPre ;
+     HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList ;
+
+
+    
     ObservableList<Contracts> hasil_n_top = FXCollections.observableArrayList();
 
     @FXML
@@ -73,6 +88,10 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private Button Sbm25;
+    
+    @FXML
+    private Button lm;
+    
     @FXML
     private TableView myTabel;
 
@@ -108,6 +127,12 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private TextArea kunjaw;
+    
+    @FXML
+    private Label f1;
+    
+    @FXML
+    private TextField f1value;
 
     @FXML
     private void search(ActionEvent event) throws IOException {
@@ -120,7 +145,12 @@ public class FXMLDocumentController implements Initializable {
             printToTabel();
 //            ObservableList<String> result = myTabel.getSelectionModel().getSelectedItems();
             System.out.println("a");
-            ArrayList<DocumentBagOfWord> result =  RankedSearching.search(input.getText());
+            ArrayList<DocumentBagOfWord> result =  RankedSearching.search(input.getText() ,this.invertedIndexPostingList , this.allDocAfterPre);
+            
+//            DocumentBagOfWord d1 = result.get(2); 
+//            for (Map.Entry<String, TermTfIdf> item : d1.getTermTfIdf().entrySet()) {
+//                System.out.println("Term " + item.getKey() + " tf" + item.getValue().tf  + " idf" + item.getValue().idf);
+//            }
             
             for (DocumentBagOfWord item : result) {
                 if(item.getCosineSimilarityWithQuery()>0)
@@ -152,9 +182,12 @@ public class FXMLDocumentController implements Initializable {
         recalValue.setDisable(false); 
         preciValue.setDisable(false); 
         timeValue.setDisable(false);
+        f1.setDisable(false); 
+        f1value.setDisable(false);
         timeAkhir = System.currentTimeMillis();
         this.hitungWaktu();
         this.countRecalandPreci();
+        ranking.setText("Cosine");
     }
     
     @FXML
@@ -167,7 +200,7 @@ public class FXMLDocumentController implements Initializable {
             printToTabel();
 //            ObservableList<String> result = myTabel.getSelectionModel().getSelectedItems();
             System.out.println("a");
-            ArrayList<RSV_BM25> result =  BM_25.search_BM25(input.getText());
+            ArrayList<RSV_BM25> result =  BM_25.search_BM25(input.getText() , this.allDocAfterPre);
             
             for (RSV_BM25 item : result) {
                 if(item.rsvScore>0)
@@ -199,9 +232,66 @@ public class FXMLDocumentController implements Initializable {
         recalValue.setDisable(false); 
         preciValue.setDisable(false); 
         timeValue.setDisable(false);
+        f1.setDisable(false); 
+        f1value.setDisable(false);
         timeAkhir = System.currentTimeMillis();
         this.hitungWaktu();
         this.countRecalandPreci();
+        ranking.setText("RSV");
+    }
+    
+    @FXML
+    private void searchLanguageModel(ActionEvent event) throws IOException {
+        list.clear();
+        jawabanSistem="";
+        timeAwal= System.currentTimeMillis();
+        System.out.println(list);
+        if (input.getText().equalsIgnoreCase("") == false) {
+            printToTabel();
+//            ObservableList<String> result = myTabel.getSelectionModel().getSelectedItems();
+            ArrayList<LM_Object> result =  LanguageModel.search(input.getText() , this.allDocAfterPre, this.invertedIndexPostingList);
+            
+            
+            for (LM_Object item : result) {
+                if(item.getLmScore()> cekLanguageModel(result))
+                {
+                    String namaFile = this.formatNamaFile(item.getDocNum());
+                    list.add(new Contracts(item.getLmScore()+"", namaFile + ""));
+                    jawabanSistem+=item.getDocNum()+" ";
+                }
+            }
+            
+            if (topnrank.getText().equalsIgnoreCase("") == false) {
+                this.getTop_n(event, topnrank.getText());
+                System.out.println("Kepanggil");
+            }
+        } else {
+            myTabel.setItems(FXCollections.observableArrayList(new Contracts("", "Dokumen Kosong!!")));
+        }
+
+        myTabel.setDisable(false);
+//            hasil.getItems().add("Milea");
+//            hasil.getItems().add(hasil.getItems().get(1));
+        kethasil.setVisible(true);
+        textareaisidok.setDisable(false);
+        isidok.setDisable(false);
+        loading.setText("DOne");
+        ketRecal.setDisable(false);
+        ketPreci.setDisable(false); 
+        ketTime.setDisable(false); 
+        recalValue.setDisable(false); 
+        preciValue.setDisable(false); 
+        timeValue.setDisable(false);
+        f1.setDisable(false); 
+        f1value.setDisable(false);
+        timeAkhir = System.currentTimeMillis();
+        this.hitungWaktu();
+        this.countRecalandPreci();
+        ranking.setText("LM Score");
+    }
+    
+    private void search(char method){
+        
     }
 
     @FXML
@@ -315,7 +405,7 @@ public class FXMLDocumentController implements Initializable {
     
     public String formatKoma(double x)
     {
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#.####");
         return df.format(x);
     }
     
@@ -342,13 +432,18 @@ public class FXMLDocumentController implements Initializable {
         double tp = irisan(arrJS, arrJkunjaw);
         double fp = arrJkunjaw.length - tp;
         double fn = 154-(arrJS.length + arrJkunjaw.length - (2*tp)+tp);
+        double precision = tp/(tp+fp);
+        double recall = tp/(tp+fn);
+        double fscore = (2*precision*recall)/(precision+recall);
         
         System.out.println("Ini tp : "+ tp);
         System.out.println("Ini fp : "+ fp);
         System.out.println("Ini fn : "+ fn);
         
-        preciValue.setText((tp/(tp+fp))+"");
-        recalValue.setText((tp/(tp-fn))+"");
+        
+        preciValue.setText(formatKoma(precision)+"");
+        recalValue.setText(formatKoma(recall)+"");
+        f1value.setText(formatKoma(fscore)+"");
         System.out.println("Ini RECALL : "+ recalValue.getText());
         System.out.println("Ini PRECI : "+ preciValue.getText());
     }
@@ -368,9 +463,34 @@ public class FXMLDocumentController implements Initializable {
         return hasil;
     }
     
+    public double cekLanguageModel(ArrayList<LM_Object> result)
+    {
+        double hasil= 0.00;
+        double valueitem = 0.00;
+        double count= 1;
+        for (LM_Object item : result) {
+                if(item.getLmScore()== valueitem)
+                {
+                    count+=1;
+                }
+                else
+                {
+                    valueitem = item.getLmScore();
+                }
+            if(count >= 5)
+            {
+                hasil = valueitem;
+                break;
+            }
+        }
+        return hasil;
+    }
+    
     public void hitungWaktu()
     {
-         timeValue.setText((timeAkhir-timeAwal)+"");
+        double time = (timeAkhir - timeAwal) ; 
+        String waktu = String.format("%.4f seconds", (time /1000) );
+         timeValue.setText(waktu);
     }
 
     @Override
@@ -378,7 +498,13 @@ public class FXMLDocumentController implements Initializable {
         // TODO
          loading.setText("Loading Initialization");
          Searching.activateLemmatization();
+        try {
+            this.allDocAfterPre = Inverted_Index.read_Cleaned_Data();
+            this.invertedIndexPostingList = IndexGenerator.readInvertedIndexPostingList();
 
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
     }
 

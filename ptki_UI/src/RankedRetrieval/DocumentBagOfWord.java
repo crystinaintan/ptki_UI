@@ -64,6 +64,10 @@ public class DocumentBagOfWord implements Comparable<DocumentBagOfWord> {
         }
     }
 
+    public HashMap<String, TermTfIdf> getTermTfIdf() {
+        return termTfIdf;
+    }
+
     @Override
     public String toString() {
         String res = "Doc : " + this.documentNumber +"\n" ;

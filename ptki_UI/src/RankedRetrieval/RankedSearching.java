@@ -25,35 +25,42 @@ public class RankedSearching {
     static final String clear_path = "D:\\KULIAH SEMSETER 7\\PTKI\\Tugas\\ptki_UI\\Clean_data";
     
     public static void main(String[] args) throws IOException {
-                Searching.activateLemmatization();
-
+        Searching.activateLemmatization();
        
-        
+        System.out.println("MANTAP");
 //         HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList = IndexGenerator.generatePostingList(document);
          
-        
-        
-        ArrayList<DocumentBagOfWord> result = search("from fairest creature");
+        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
+        HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList = IndexGenerator.readInvertedIndexPostingList();
+        ArrayList<DocumentBagOfWord> result = search("from fairest creature", invertedIndexPostingList ,allDocAfterPre  );
 
+
+        DocumentBagOfWord doc1 = result.get(0);
+        
+//        for (  Map.Entry<String , TermTfIdf> item  : doc1.getTermTfIdf().entrySet() ) {
+//            System.out.println("ashiap");
+//            System.out.print("Term :" + item.getKey() + " " + item.getValue().tf + " " + item.getValue().idf);  
+//            System.out.println("");
+//        }
+        
         for (DocumentBagOfWord item : result) {
+            System.out.println("mantap mantap");
             System.out.println(item.toString());
         }
     }
 
     private static final String cleanedDataPath = clear_path;
 
-    public static ArrayList<DocumentBagOfWord> search(String input  ) throws IOException {
+    public static ArrayList<DocumentBagOfWord> search(String input , HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList ,List<String> allDocAfterPre ) throws IOException {
         ArrayList<DocumentBagOfWord> result = new ArrayList<DocumentBagOfWord>();
 
         // read inverted index posting List 
-        HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList = IndexGenerator.readInvertedIndexPostingList();
         
         // preprocessed input
         String inputPreprocessed = Searching.inputPreprocessing(input);
 
         HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingListAfter = addQueryToInvertedIndexPostingList(inputPreprocessed, invertedIndexPostingList);
 
-        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
 
         // get the query cosine similarity 
         DocumentBagOfWord query = getQueryBagOfWords(invertedIndexPostingListAfter, inputPreprocessed, allDocAfterPre.size());

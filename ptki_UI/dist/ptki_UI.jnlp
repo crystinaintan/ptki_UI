@@ -11,7 +11,7 @@
     <jar href="lib\lucene-snowball-3.0.2.jar" size="115256" download="eager" />
     <jar href="lib\stanford-corenlp-3.9.2-models.jar" size="362565193" download="eager" />
     <jar href="lib\stanford-corenlp-3.9.2.jar" size="8146873" download="eager" />
-    <jar href="ptki_UI.jar" size="38504" download="eager" />
+    <jar href="ptki_UI.jar" size="40080" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ptki_UI" >
     <param name="requiredFXVersion" value="8.0+"/>

@@ -3,7 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI%20-%20DONE/ptki_UI/src/ptki_ui/FXMLDocumentController.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/inverted_index/Inverted_Index.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/BM_25.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/RankedSearching.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/inverted_index/Searching.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/LM_Object.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/build.xml</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/ptki_ui/Ptki_UI.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/inverted_index/preprocessing/Stopwords.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/inverted_index/IndexGenerator.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/nbproject/jfx-impl.xml</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/RSV_BM25.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/CosineSimilarity.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/inverted_index/DictionaryAndPosting.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/TfIdfCount.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/TermTfIdf.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/ptki_ui/FXMLDocument.fxml</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/LanguageModel.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/ptki_ui/FXMLDocumentController.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/src/RankedRetrieval/DocumentBagOfWord.java</file>
+            <file>file:/D:/KULIAH%20SEMSETER%207/PTKI/Tugas/ptki_UI/ptki_UI/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

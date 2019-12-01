@@ -23,6 +23,7 @@ public class LanguageModel {
     public static void main(String[] args) throws IOException {
         Searching.activateLemmatization();
         
+        // --------------- dummy test ------------------------------------------
         String doc1 = "Xerox reports a profit but revenue is down";
         String afterDoc1 = Searching.inputPreprocessing(doc1);
         
@@ -31,26 +32,27 @@ public class LanguageModel {
         
         ArrayList<String> dataset = new ArrayList<String>();
         dataset.add(afterDoc1);
-        dataset.add(afterDoc2);
-        
+        dataset.add(afterDoc2);        
         HashMap<String , HashMap<Integer , ArrayList<Integer>>> invertedIndex = IndexGenerator.generatePostingList(dataset);
+        
+        
+        //----------------- real test -----------------------------------------
         String input = "fairest creatures"; 
         
-//        , HashMap<String,HashMap<Integer,ArrayList<Integer>>> invertedIndexPostingList , List<String> allDocAfterPre 
-        
-        ArrayList<LM_Object> result = search(input);
+        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
+        HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList = IndexGenerator.readInvertedIndexPostingList();
+
+        ArrayList<LM_Object> result = search(input ,allDocAfterPre,invertedIndexPostingList);
         for (LM_Object docNow : result) {
             System.out.println("now doc :" + docNow.getDocNum()
                     + " now ranking :"+  docNow.getLmScore());
             System.out.println("");
         }
     }
-    public static ArrayList<LM_Object> search(String input ) throws IOException {
+    public static ArrayList<LM_Object> search(String input ,List<String> allDocAfterPre,HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList) throws IOException {
         String preProcessedInput = Searching.inputPreprocessing(input);
         ArrayList<LM_Object> result = new ArrayList<>();
-        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
         String[] splittedPreProcessedInput = preProcessedInput.split(" ");
-        HashMap<String, HashMap<Integer, ArrayList<Integer>>> invertedIndexPostingList = IndexGenerator.readInvertedIndexPostingList();
         
         int howManyWordInEveryDoc = howManyWordInEveryDoc(allDocAfterPre);
         double alpha = 0.5; 

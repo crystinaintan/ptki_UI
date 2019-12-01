@@ -21,7 +21,10 @@ public class BM_25 {
     public static void main(String[] args) throws IOException {
         Searching.activateLemmatization();
         
-        ArrayList<RSV_BM25>  result = search_BM25("fairest creature");
+        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
+
+        
+        ArrayList<RSV_BM25>  result = search_BM25("fairest creature" , allDocAfterPre);
         for (int i = 0; i < result.size(); i++) {
             RSV_BM25 now = result.get(i);
             System.out.print("no doc : " + now.getNumDoc() + " rsv : " + now.getRsvScore());
@@ -32,12 +35,11 @@ public class BM_25 {
         
     }
     
-    public static ArrayList<RSV_BM25> search_BM25(String input) throws IOException{
+    public static ArrayList<RSV_BM25> search_BM25(String input ,List<String> allDocAfterPre) throws IOException{
         ArrayList<RSV_BM25> result = new ArrayList<>();
         
         String preProcessedInput = Searching.inputPreprocessing(input); 
         String[] splittedPreProcessedInput = preProcessedInput.split(" ");
-        List<String> allDocAfterPre = Inverted_Index.read_Cleaned_Data();
         HashMap<String  , HashMap<Integer,  Integer>> bagOfWord_bm25 =  generateBagOfWord(allDocAfterPre) ; 
         int howManyDoc = allDocAfterPre.size();
         double l_Ave = countL_Average(allDocAfterPre);

@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="506.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ptki_ui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="506.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ptki_ui.FXMLDocumentController">
     <children>
-        <Button fx:id="cari" layoutX="163.0" layoutY="131.0" onAction="#search" onMouseClicked="#search" text="Search TF-IDF" />
+        <Button fx:id="cari" layoutX="37.0" layoutY="131.0" onAction="#search" onMouseClicked="#search" text="Search TF-IDF" />
         <Label fx:id="keteranganQuery" layoutX="26.0" layoutY="49.0" minHeight="16" minWidth="69" text="Masukkan Query" />
       <TextField fx:id="input" layoutX="164.0" layoutY="43.0" onMouseClicked="#resetAll" />
       <Label fx:id="rank" layoutX="26.0" layoutY="91.0" minHeight="16" minWidth="69" text="Top n Rank" />
@@ -31,14 +31,17 @@
          </children>
       </VBox>
       <Label fx:id="loading" layoutX="21.0" layoutY="479.0" prefHeight="18.0" prefWidth="149.0" text="Loading Initialization" />
-      <Button fx:id="Sbm25" layoutX="282.0" layoutY="131.0" mnemonicParsing="false" onAction="#searchBM25" text="Search BM25" />
+      <Button fx:id="Sbm25" layoutX="165.0" layoutY="131.0" mnemonicParsing="false" onAction="#searchBM25" text="Search BM25" />
       <Label fx:id="ketRecal" disable="true" layoutX="427.0" layoutY="52.0" prefHeight="18.0" prefWidth="45.0" text="Recall" />
-      <Label fx:id="ketPreci" disable="true" layoutX="427.0" layoutY="88.0" prefHeight="18.0" prefWidth="54.0" text="Precision" />
-      <Label fx:id="ketTime" disable="true" layoutX="427.0" layoutY="126.0" prefHeight="18.0" prefWidth="81.0" text="Time Executed" />
+      <Label fx:id="ketPreci" disable="true" layoutX="427.0" layoutY="88.0" prefHeight="18.0" prefWidth="70.0" text="Precision" />
+      <Label fx:id="ketTime" disable="true" layoutX="427.0" layoutY="126.0" prefHeight="18.0" prefWidth="97.0" text="Time Executed" />
       <TextField fx:id="recalValue" disable="true" editable="false" layoutX="531.0" layoutY="49.0" />
       <TextField fx:id="preciValue" disable="true" editable="false" layoutX="531.0" layoutY="84.0" />
-      <TextField fx:id="timeValue" disable="true" editable="false" layoutX="531.0" layoutY="124.0" />
+      <TextField fx:id="timeValue" disable="true" editable="false" layoutX="531.0" layoutY="122.0" />
       <Label fx:id="ketKunciJawaban" layoutX="725.0" layoutY="22.0" prefHeight="18.0" prefWidth="90.0" text="Kunci Jawaban" />
       <TextArea fx:id="kunjaw" layoutX="725.0" layoutY="46.0" prefHeight="101.0" prefWidth="174.0" />
+      <Button fx:id="lm" layoutX="284.0" layoutY="131.0" mnemonicParsing="false" onAction="#searchLanguageModel" text="Language Model" />
+      <Label fx:id="f1" disable="true" layoutX="427.0" layoutY="157.0" prefHeight="18.0" prefWidth="97.0" text="F-1" />
+      <TextField fx:id="f1value" disable="true" editable="false" layoutX="531.0" layoutY="153.0" />
     </children>
 </AnchorPane>
